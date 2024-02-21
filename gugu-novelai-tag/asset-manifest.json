@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/gugu-novelai-tag/static/css/main.c1422f37.css",
+    "main.js": "/gugu-novelai-tag/static/js/main.cc34e1ec.js",
+    "index.html": "/gugu-novelai-tag/index.html",
+    "main.c1422f37.css.map": "/gugu-novelai-tag/static/css/main.c1422f37.css.map",
+    "main.cc34e1ec.js.map": "/gugu-novelai-tag/static/js/main.cc34e1ec.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.c1422f37.css",
+    "static/js/main.cc34e1ec.js"
+  ]
+}
