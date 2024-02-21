@@ -7,8 +7,8 @@
 
 <head>
   <meta charset="UTF-8">
-  <link rel="apple-touch-icon" sizes="76x76" href="/blog/imagesmages/favicon.ico">
-  <link rel="icon" href="/blog/imagesmages/favicon.ico">
+  <link rel="apple-touch-icon" sizes="76x76" href="/blog/images/favicon.ico">
+  <link rel="icon" href="/blog/images/favicon.ico">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
@@ -19,7 +19,7 @@
     <meta name="description" content="模拟容器顺序启动场景并实践解决之前讲 docker-compose 的时候有提到过容器顺序启动的问题，现在来模拟然后实践解决一下。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="模拟容器顺序启动场景并实践解决">
-<meta property="og:url" content="http://example.com/2024/02/21/%E6%A8%A1%E6%8B%9F%E5%AE%B9%E5%99%A8%E9%A1%BA%E5%BA%8F%E5%90%AF%E5%8A%A8%E5%9C%BA%E6%99%AF%E5%B9%B6%E5%AE%9E%E8%B7%B5%E8%A7%A3%E5%86%B3/index.html">
+<meta property="og:url" content="http://www.gugu.dev/blog/2024/02/21/%E6%A8%A1%E6%8B%9F%E5%AE%B9%E5%99%A8%E9%A1%BA%E5%BA%8F%E5%90%AF%E5%8A%A8%E5%9C%BA%E6%99%AF%E5%B9%B6%E5%AE%9E%E8%B7%B5%E8%A7%A3%E5%86%B3/index.html">
 <meta property="og:site_name" content="MinMin的鸽子窝">
 <meta property="og:description" content="模拟容器顺序启动场景并实践解决之前讲 docker-compose 的时候有提到过容器顺序启动的问题，现在来模拟然后实践解决一下。">
 <meta property="og:locale" content="zh_CN">
@@ -62,12 +62,12 @@
 <link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
 
 
-<link  rel="stylesheet" href="/blog/cssg/css/main.css" />
+<link  rel="stylesheet" href="/blog/css/main.css" />
 
 
-  <link id="highlight-css" rel="stylesheet" href="/blog/cssg/css/highlight.css" />
+  <link id="highlight-css" rel="stylesheet" href="/blog/css/highlight.css" />
   
-    <link id="highlight-css-dark" rel="stylesheet" href="/blog/cssg/css/highlight-dark.css" />
+    <link id="highlight-css-dark" rel="stylesheet" href="/blog/css/highlight-dark.css" />
   
 
 
@@ -76,15 +76,15 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"www.gugu.dev","root":"/blog/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/blog/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
       Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
     }
   </script>
-  <script  src="/blog/jsog/js/utils.js" ></script>
-  <script  src="/blog/jsog/js/color-schema.js" ></script>
+  <script  src="/blog/js/utils.js" ></script>
+  <script  src="/blog/js/color-schema.js" ></script>
   
 
 
@@ -101,7 +101,7 @@
 <div class="header-inner" style="height: 70vh;">
   <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
-    <a class="navbar-brand" href="/">
+    <a class="navbar-brand" href="/blog/">
       <strong>MinMin Blog</strong>
     </a>
 
@@ -120,7 +120,7 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/" target="_self">
+              <a class="nav-link" href="/blog/" target="_self">
                 <i class="iconfont icon-home-fill"></i>
                 <span>首页</span>
               </a>
@@ -132,7 +132,7 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/blog/archiveshives" target="_self">
+              <a class="nav-link" href="/blog/archives/" target="_self">
                 <i class="iconfont icon-archive-fill"></i>
                 <span>归档</span>
               </a>
@@ -144,7 +144,7 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/blog/categoriesories" target="_self">
+              <a class="nav-link" href="/blog/categories/" target="_self">
                 <i class="iconfont icon-category-fill"></i>
                 <span>分类</span>
               </a>
@@ -156,7 +156,7 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/blog/tags/tags" target="_self">
+              <a class="nav-link" href="/blog/tags/" target="_self">
                 <i class="iconfont icon-tags-fill"></i>
                 <span>标签</span>
               </a>
@@ -168,7 +168,7 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/blog/aboutabout" target="_self">
+              <a class="nav-link" href="/blog/about/" target="_self">
                 <i class="iconfont icon-user-fill"></i>
                 <span>关于</span>
               </a>
@@ -198,7 +198,7 @@
   
 
 <div id="banner" class="banner" parallax=true
-     style="background: url('/blog/imgg/img/default.png') no-repeat center center; background-size: cover;">
+     style="background: url('/blog/img/default.png') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
@@ -299,7 +299,7 @@
 <h3 id="docker-compose"><a href="#docker-compose" class="headerlink" title="docker-compose"></a>docker-compose</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs docker-compose">services:<br>  server:<br>    image: test-server<br>  client:<br>    image: test-client<br>    environment:<br>      - host=server<br></code></pre></td></tr></table></figure>
 
 <h2 id="重现启动顺序问题"><a href="#重现启动顺序问题" class="headerlink" title="重现启动顺序问题"></a>重现启动顺序问题</h2><p>OK，直接跑<code>docker-compose up</code>就出现下面的情况</p>
-<p><img src="https://s2.loli.net/2023/03/15/ka7F35ysgeO1RDr.png" srcset="/blog/imgg/img/loading.gif" lazyload alt="image-20230315020333871"></p>
+<p><img src="https://s2.loli.net/2023/03/15/ka7F35ysgeO1RDr.png" srcset="/blog/img/loading.gif" lazyload alt="image-20230315020333871"></p>
 <p>那么如何解决？</p>
 <h2 id="事件解决方案"><a href="#事件解决方案" class="headerlink" title="事件解决方案"></a>事件解决方案</h2><h3 id="FROM-server"><a href="#FROM-server" class="headerlink" title="FROM server"></a><s>FROM server</s></h3><p>这是我一个朋友觉得可行的方法，OK，来试试。<s>我已经看到了失败了未来</s></p>
 <p>来魔改一下 client-dockerfile</p>
@@ -308,7 +308,7 @@
 <p>然后敲敲命令进行构建、运行</p>
 <p><code>docker build -f client-dockerfile -t test-client .</code></p>
 <p><code>docker run --rm -it test-client</code></p>
-<p><img src="https://s2.loli.net/2023/03/15/1BrSgMctehUoEQp.png" srcset="/blog/imgg/img/loading.gif" lazyload alt="202303130900309"></p>
+<p><img src="https://s2.loli.net/2023/03/15/1BrSgMctehUoEQp.png" srcset="/blog/img/loading.gif" lazyload alt="202303130900309"></p>
 <p>预料之中的失败，为什么呢，因为 server 还在睡觉吗？不，它根本不存在。</p>
 <p>来魔改一下 server-dockerfile</p>
 <figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile"><span class="hljs-keyword">FROM</span> openjdk:<span class="hljs-number">11</span><br><br><span class="hljs-keyword">ENTRYPOINT</span><span class="language-bash"> [<span class="hljs-string">&quot;/bin/echo&quot;</span>, <span class="hljs-string">&quot;i am server&quot;</span>]</span><br></code></pre></td></tr></table></figure>
@@ -317,7 +317,7 @@
 <figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile"><span class="hljs-keyword">FROM</span> test-server<br><br><span class="hljs-keyword">ENTRYPOINT</span><span class="language-bash"> [<span class="hljs-string">&quot;/bin/echo&quot;</span>, <span class="hljs-string">&quot;i am client&quot;</span>]</span><br></code></pre></td></tr></table></figure>
 
 <p>运行<code>docker run --rm -it test-server-client</code>看看结果</p>
-<p><img src="https://s2.loli.net/2023/03/15/Dx75lkf2OmjRH6S.png" srcset="/blog/imgg/img/loading.gif" lazyload alt="202303130859677"></p>
+<p><img src="https://s2.loli.net/2023/03/15/Dx75lkf2OmjRH6S.png" srcset="/blog/img/loading.gif" lazyload alt="202303130859677"></p>
 <p>命令被覆盖掉了。</p>
 <p>就算不被覆盖掉，那启动起来也是一样的结果，<code>Java -jar Server.jar</code>又不会造成阻塞。</p>
 <h3 id="docker-推荐的项目"><a href="#docker-推荐的项目" class="headerlink" title="docker 推荐的项目"></a>docker 推荐的项目</h3><p><a target="_blank" rel="noopener" href="https://github.com/dwmkerr/wait-port">wait-port</a>是基于 nodejs 的，哎，还得安装环境，开始写 dockerfile</p>
@@ -334,13 +334,13 @@
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">services:</span><br>    <span class="hljs-attr">server:</span><br>        <span class="hljs-attr">image:</span> <span class="hljs-string">test-server</span><br>    <span class="hljs-attr">client:</span><br>        <span class="hljs-attr">image:</span> <span class="hljs-string">test-client</span><br>        <span class="hljs-attr">environment:</span><br>            <span class="hljs-bullet">-</span> <span class="hljs-string">waitServer=server:11010</span><br>            <span class="hljs-bullet">-</span> <span class="hljs-string">host=server</span><br></code></pre></td></tr></table></figure>
 
 <p>OK，使用<code>docker-compose up</code>启动看看</p>
-<p><img src="https://s2.loli.net/2023/03/15/af13bBxIzOFRGk8.png" srcset="/blog/imgg/img/loading.gif" lazyload alt="202303130859983"></p>
+<p><img src="https://s2.loli.net/2023/03/15/af13bBxIzOFRGk8.png" srcset="/blog/img/loading.gif" lazyload alt="202303130859983"></p>
 <p>它是用 socket 尝试连接，由于我们的 server 只监听一次 socket，好吧，加一次循环监听两次 socket</p>
 <p>Server</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Server</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> IOException, InterruptedException &#123;<br>        TimeUnit.SECONDS.sleep(<span class="hljs-number">3</span>);<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">2</span>; i++) &#123;<br>            <span class="hljs-type">ServerSocket</span> <span class="hljs-variable">serverSocket</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ServerSocket</span>(<span class="hljs-number">11010</span>);<br>            System.out.println(<span class="hljs-string">&quot;开始监听11010端口&quot;</span>);<br>            <span class="hljs-type">Socket</span> <span class="hljs-variable">accept</span> <span class="hljs-operator">=</span> serverSocket.accept();<br>            <span class="hljs-type">InputStream</span> <span class="hljs-variable">inputStream</span> <span class="hljs-operator">=</span> accept.getInputStream();<br>            <span class="hljs-type">StringBuilder</span> <span class="hljs-variable">stringBuilder</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">StringBuilder</span>();<br>            <span class="hljs-type">int</span> pass;<br>            <span class="hljs-keyword">while</span> ((pass = inputStream.read()) != -<span class="hljs-number">1</span>) &#123;<br>                stringBuilder.append((<span class="hljs-type">char</span>) pass);<br>            &#125;<br>            System.out.println(<span class="hljs-string">&quot;收到消息: &quot;</span> + stringBuilder);<br>            serverSocket.close();<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <p>再<code>docker compose up</code>启动</p>
-<p><img src="https://s2.loli.net/2023/03/15/Yup5VvkyXWIERHD.png" srcset="/blog/imgg/img/loading.gif" lazyload alt="202303130857972"></p>
+<p><img src="https://s2.loli.net/2023/03/15/Yup5VvkyXWIERHD.png" srcset="/blog/img/loading.gif" lazyload alt="202303130857972"></p>
 <p>终于舒服了，中间的那个 client 构建，我这里可是花了 300 秒…</p>
 <h3 id="shell-脚本"><a href="#shell-脚本" class="headerlink" title="shell 脚本"></a>shell 脚本</h3><p>我之前有说过<a target="_blank" rel="noopener" href="https://github.com/kumarstack55/wait-for-port-to-open">一个 shell 脚本来实现的</a>，大概看了一下他的代码，一句话概括就是，用 netcat 进行 socket 连接并循环直到连通为止。</p>
 <p>OK，那 server 还是得监听两次 socket，但是他的代码还要魔改一下，方便我们使用 docker-compose 进行传参。</p>
@@ -354,7 +354,7 @@
 <figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile"><span class="hljs-keyword">FROM</span> openjdk:<span class="hljs-number">11</span><br><br><span class="hljs-keyword">RUN</span><span class="language-bash"> <span class="hljs-built_in">mkdir</span> /data01</span><br><span class="hljs-keyword">COPY</span><span class="language-bash"> out/artifacts/Client_jar/Client.jar /data01/</span><br><span class="hljs-keyword">WORKDIR</span><span class="language-bash"> /data01/</span><br><span class="hljs-keyword">ENV</span> host=localhost<br><br><span class="hljs-keyword">COPY</span><span class="language-bash"> ./wait.sh /data01/</span><br><span class="hljs-comment"># 上一步也可以按照他的说明用curl下下来，不过我在本地修改了他的代码所以直接COPY了</span><br><span class="hljs-keyword">RUN</span><span class="language-bash"> apt update &amp;&amp; apt install -y netcat</span><br><span class="hljs-keyword">ENTRYPOINT</span><span class="language-bash"> [<span class="hljs-string">&quot;/bin/bash&quot;</span>, <span class="hljs-string">&quot;wait.sh&quot;</span>]</span><br></code></pre></td></tr></table></figure>
 
 <p>再 <code>docker compose up</code> 跑起来</p>
-<p><img src="https://s2.loli.net/2023/03/15/NAMu3RnKclTDxmH.png" srcset="/blog/imgg/img/loading.gif" lazyload alt="202303130856964"></p>
+<p><img src="https://s2.loli.net/2023/03/15/NAMu3RnKclTDxmH.png" srcset="/blog/img/loading.gif" lazyload alt="202303130856964"></p>
 <p>舒服了，比 docker 推荐的方案要轻得多。</p>
 <p>不过 emmmmmm，那我直接启动的时候让 client 直接睡得比 server 久，不也是个方法吗，哈哈哈，虽然可靠性不怎么样就是了。</p>
 <h2 id="PS"><a href="#PS" class="headerlink" title="PS"></a>PS</h2><p>如果需要等待多个服务怎么办？那就改进一下 shell 呗，加个循环，全部循环成功才执行下一步命令。</p>
@@ -376,7 +376,7 @@
     
       <span class="category-chain">
         
-  <a href="/blog/categoriesories/运维" class="category-chain-item">运维</a>
+  <a href="/blog/categories/%E8%BF%90%E7%BB%B4/" class="category-chain-item">运维</a>
   
   
 
@@ -391,7 +391,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/blog/tags/tags/Docker" class="print-no-link">#Docker</a>
+        <a href="/blog/tags/Docker/" class="print-no-link">#Docker</a>
       
     </div>
   
@@ -404,7 +404,7 @@
   <div class="license-box my-3">
     <div class="license-title">
       <div>模拟容器顺序启动场景并实践解决</div>
-      <div>http://example.com/2024/02/21/模拟容器顺序启动场景并实践解决/</div>
+      <div>http://www.gugu.dev/blog/2024/02/21/模拟容器顺序启动场景并实践解决/</div>
     </div>
     <div class="license-meta">
       
@@ -448,7 +448,7 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/blog/2024/2024/02/21/打造透明代理的路由器或WiFi" title="打造透明代理的路由器或WiFi">
+                      <a href="/blog/2024/02/21/%E6%89%93%E9%80%A0%E9%80%8F%E6%98%8E%E4%BB%A3%E7%90%86%E7%9A%84%E8%B7%AF%E7%94%B1%E5%99%A8%E6%88%96WiFi/" title="打造透明代理的路由器或WiFi">
                         <i class="iconfont icon-arrowleft"></i>
                         <span class="hidden-mobile">打造透明代理的路由器或WiFi</span>
                         <span class="visible-mobile">上一篇</span>
@@ -458,7 +458,7 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/blog/2024/2024/02/21/常用的adb流程与命令" title="常用的adb流程与命令">
+                      <a href="/blog/2024/02/21/%E5%B8%B8%E7%94%A8%E7%9A%84adb%E6%B5%81%E7%A8%8B%E4%B8%8E%E5%91%BD%E4%BB%A4/" title="常用的adb流程与命令">
                         <span class="hidden-mobile">常用的adb流程与命令</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
@@ -588,8 +588,8 @@
 
 <script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
 <script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
-<script  src="/blog/jsog/js/events.js" ></script>
-<script  src="/blog/jsog/js/plugins.js" ></script>
+<script  src="/blog/js/events.js" ></script>
+<script  src="/blog/js/plugins.js" ></script>
 
 
   <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
@@ -611,7 +611,7 @@
 
 
   
-    <script  src="/blog/jsog/js/img-lazyload.js" ></script>
+    <script  src="/blog/js/img-lazyload.js" ></script>
   
 
 
@@ -710,7 +710,7 @@
 
   <script>Fluid.plugins.imageCaption();</script>
 
-  <script  src="/blog/jsog/js/local-search.js" ></script>
+  <script  src="/blog/js/local-search.js" ></script>
 
 
 
@@ -718,7 +718,7 @@
 
 <!-- 主题的启动项，将它保持在最底部 -->
 <!-- the boot of the theme, keep it at the bottom -->
-<script  src="/blog/jsog/js/boot.js" ></script>
+<script  src="/blog/js/boot.js" ></script>
 
 
   
