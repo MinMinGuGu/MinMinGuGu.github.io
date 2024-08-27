@@ -1,0 +1,726 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/images/favicon.ico">
+  <link rel="icon" href="/images/favicon.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="MinMin">
+  <meta name="keywords" content="MinMin,MinMin Blog">
+  
+    <meta name="description" content="在编写Java的小工具后，要给别人发程序，但别人可能比较外行，不了解一些知识，那如何便于他们也能够简单的运行Java程序呢？">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java应用程序的分发">
+<meta property="og:url" content="https://blog.gugu.dev/2024/08/27/Java%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E7%9A%84%E5%88%86%E5%8F%91/index.html">
+<meta property="og:site_name" content="MinMin的鸽子窝">
+<meta property="og:description" content="在编写Java的小工具后，要给别人发程序，但别人可能比较外行，不了解一些知识，那如何便于他们也能够简单的运行Java程序呢？">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2024/08/25/1DIl623efW7O9Q5.png">
+<meta property="og:image" content="https://i.postimg.cc/htTM8sjv/Snipaste-2024-08-27-13-28-13.png">
+<meta property="og:image" content="https://i.postimg.cc/6pZ2y1Qj/Snipaste-2024-08-27-13-28-13.png">
+<meta property="og:image" content="https://i.postimg.cc/bwSCd8b7/Snipaste-2024-08-27-13-28-13.png">
+<meta property="og:image" content="https://i.postimg.cc/vHvv2TyL/Snipaste-2024-08-27-13-21-14.png">
+<meta property="article:published_time" content="2024-08-27T05:35:57.000Z">
+<meta property="article:modified_time" content="2024-08-27T05:43:18.237Z">
+<meta property="article:author" content="MinMin">
+<meta property="article:tag" content="Java">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://s2.loli.net/2024/08/25/1DIl623efW7O9Q5.png">
+  
+  
+  
+  <title>Java应用程序的分发 - MinMin的鸽子窝</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"blog.gugu.dev","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>MinMin Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Java应用程序的分发"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-08-27 13:35" pubdate>
+          2024年8月27日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.6k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          22 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Java应用程序的分发</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="Java应用程序的分发"><a href="#Java应用程序的分发" class="headerlink" title="Java应用程序的分发"></a>Java应用程序的分发</h1><p>说到给一些比较外行的人发Java程序，让他们能够运行起程序来，这是关于Java程序分发的问题。</p>
+<p>可以从最直白的思路想，Java程序是如何运行起来的。</p>
+<p>从源码的<code>.java</code>编译成<code>.class</code>再打包成<code>.jar</code>形式，然后就可以通过命令<code>java -jar xxx.jar</code>来执行程序了。</p>
+<p>这一过程中编译打包的部分使用到了JDK，后面的部分执行时使用到了JRE。</p>
+<p>就是说我们自己需要JDK来编写编译打包，执行的人需要JRE就可以了。</p>
+<p>那么这里就有一个直白的做法了。</p>
+<h2 id="编译源码打包-JRE-shell脚本"><a href="#编译源码打包-JRE-shell脚本" class="headerlink" title="编译源码打包+JRE+shell脚本"></a>编译源码打包+JRE+shell脚本</h2><p>我们可以创建一个文件夹，这个文件夹里面有打包好的Java程序以及JRE，再写一个对应操作系统的shell脚本。</p>
+<p>这样做使用我们程序的人就可以直接通过双击脚本来执行程序了。</p>
+<p>但这里面可能要注意一下JRE的提取问题以及这个方案的缺点。</p>
+<h3 id="JRE的提取"><a href="#JRE的提取" class="headerlink" title="JRE的提取"></a>JRE的提取</h3><h4 id="JDK8以及之前"><a href="#JDK8以及之前" class="headerlink" title="JDK8以及之前"></a>JDK8以及之前</h4><p>这些版本的JDK是直接包含JRE的，就在JDK的目录下有一个jre的目录，直接复制文件夹即可。</p>
+<p>或者你可以直接去对应的官网下载对应的jre，下面给个Oracle的链接：</p>
+<p><a target="_blank" rel="noopener" href="https://www.oracle.com/cn/java/technologies/javase/javase8u211-later-archive-downloads.html">Java Archive Downloads - Java SE 8u211 and later | Oracle 中国</a></p>
+<h4 id="JDK9以及之后"><a href="#JDK9以及之后" class="headerlink" title="JDK9以及之后"></a>JDK9以及之后</h4><p>JDK8之后引入了模块化的设计，不再像之前一样直接带有完整功能的JRE，一般Java程序不会什么都用到，所以这样设计所需的JRE部分体积会变小。</p>
+<p>关于这方面的介绍，这里我贴两个链接，在这里就不过多描述了。</p>
+<p><a target="_blank" rel="noopener" href="https://www.oracle.com/cn/corporate/features/understanding-java-9-modules.html">了解 Java 9 模块 | Oracle 中国</a></p>
+<p><a target="_blank" rel="noopener" href="https://liaoxuefeng.com/books/java/oop/basic/module/"> 模块 - Java教程 - 廖雪峰的官方网站</a></p>
+<p>这里还讲讲实际操作的大概过程，最方便直接的做法是打包成一个<code>.jar</code>后，开始分析这个jar所依赖的Java模块<s>（当然最好是开始时候就要写这些东西了）</s>。</p>
+<p>使用<code>jdeps</code>来分析一个jar大致所所依赖的Java模块，示例命令：<code>jdeps.exe --print-module-deps --recursive --ignore-missing-deps &lt;jar file&gt;</code>。</p>
+<p><code>--print-module-deps</code>：打印 jar 文件所需的 JDK 模块。</p>
+<p><code>--recursive</code>：递归分析 jar 文件中所有类的依赖。</p>
+<p><code>--ignore-missing-deps</code>：忽略无法找到的依赖模块。</p>
+<p>演示过程：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs powershell"><span class="hljs-built_in">PS</span> E:\Temp\Example\GuGu_Typora_Image_Magic\target&gt; jdeps <span class="hljs-literal">--print-module-deps</span> <span class="hljs-literal">--recursive</span> <span class="hljs-literal">--ignore-missing-deps</span> .\gugu_typora_image_magic<span class="hljs-literal">-1</span>.<span class="hljs-number">0.0</span><span class="hljs-literal">-jar-with-dependencies</span>.jar<br>java.base,java.compiler,java.instrument,jdk.unsupported<br></code></pre></td></tr></table></figure>
+
+<p>上面通过命令分析输出所需的Java模块<code>java.base,java.compiler,java.instrument,jdk.unsupported</code>，接下来就是提取jre，使用命令<code>jlink</code>，示例命令：<code>jlink --add-modules &lt;modules&gt; --output &lt;path&gt;</code></p>
+<p>演示过程：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><code class="hljs powershell"><span class="hljs-built_in">PS</span> E:\Temp\Example\GuGu_Typora_Image_Magic\target&gt; jlink <span class="hljs-literal">--add-modules</span> <span class="hljs-string">&quot;java.base,java.compiler,java.instrument,jdk.unsupported&quot;</span> <span class="hljs-literal">--output</span> <span class="hljs-string">&quot;./jre&quot;</span><br><span class="hljs-built_in">PS</span> E:\Temp\Example\GuGu_Typora_Image_Magic\target&gt; <span class="hljs-built_in">dir</span><br><br><br>    目录: E:\Temp\Example\GuGu_Typora_Image_Magic\target<br><br><br>Mode                 LastWriteTime         Length Name<br><span class="hljs-literal">----</span>                 <span class="hljs-literal">-------------</span>         <span class="hljs-literal">------</span> <span class="hljs-literal">----</span><br>d<span class="hljs-literal">-----</span>         <span class="hljs-number">2024</span>/<span class="hljs-number">8</span>/<span class="hljs-number">25</span>     <span class="hljs-number">12</span>:<span class="hljs-number">01</span>                archive<span class="hljs-literal">-tmp</span><br>d<span class="hljs-literal">-----</span>         <span class="hljs-number">2024</span>/<span class="hljs-number">8</span>/<span class="hljs-number">25</span>     <span class="hljs-number">12</span>:<span class="hljs-number">38</span>                classes<br>d<span class="hljs-literal">-----</span>         <span class="hljs-number">2024</span>/<span class="hljs-number">8</span>/<span class="hljs-number">25</span>     <span class="hljs-number">12</span>:<span class="hljs-number">38</span>                generated<span class="hljs-literal">-sources</span><br>d<span class="hljs-literal">-----</span>         <span class="hljs-number">2024</span>/<span class="hljs-number">8</span>/<span class="hljs-number">25</span>     <span class="hljs-number">12</span>:<span class="hljs-number">52</span>                jre<br>d<span class="hljs-literal">-----</span>         <span class="hljs-number">2024</span>/<span class="hljs-number">8</span>/<span class="hljs-number">25</span>     <span class="hljs-number">12</span>:<span class="hljs-number">01</span>                maven<span class="hljs-literal">-archiver</span><br>d<span class="hljs-literal">-----</span>         <span class="hljs-number">2024</span>/<span class="hljs-number">8</span>/<span class="hljs-number">25</span>     <span class="hljs-number">12</span>:<span class="hljs-number">38</span>                maven<span class="hljs-literal">-status</span><br><span class="hljs-literal">-a----</span>         <span class="hljs-number">2024</span>/<span class="hljs-number">8</span>/<span class="hljs-number">25</span>     <span class="hljs-number">12</span>:<span class="hljs-number">01</span>        <span class="hljs-number">4392012</span> gugu_typora_image_magic<span class="hljs-literal">-1</span>.<span class="hljs-number">0.0</span><span class="hljs-literal">-jar-with-dependencies</span>.jar<br><span class="hljs-literal">-a----</span>         <span class="hljs-number">2024</span>/<span class="hljs-number">8</span>/<span class="hljs-number">25</span>     <span class="hljs-number">12</span>:<span class="hljs-number">01</span>          <span class="hljs-number">16623</span> gugu_typora_image_magic<span class="hljs-literal">-1</span>.<span class="hljs-number">0.0</span>.jar<br><br><span class="hljs-built_in">PS</span> E:\Temp\Example\GuGu_Typora_Image_Magic\target&gt; tree jre<br>卷 <span class="hljs-keyword">Data</span> 的文件夹 PATH 列表<br>E:\TEMP\EXAMPLE\GUGU_TYPORA_IMAGE_MAGIC\TARGET\JRE<br>├─bin<br>│  └─server<br>├─conf<br>│  └─security<br>│      └─policy<br>│          ├─limited<br>│          └─unlimited<br>├─include<br>│  └─win32<br>├─legal<br>│  ├─java.base<br>│  ├─java.compiler<br>│  ├─java.instrument<br>│  └─jdk.unsupported<br>└─lib<br>    ├─security<br>    └─server<br></code></pre></td></tr></table></figure>
+
+<p>接下来运行程序看看效果：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs powershell"><span class="hljs-built_in">PS</span> E:\Temp\Example\GuGu_Typora_Image_Magic\target&gt; .\jre\bin\java.exe <span class="hljs-literal">-jar</span> .\gugu_typora_image_magic<span class="hljs-literal">-1</span>.<span class="hljs-number">0.0</span><span class="hljs-literal">-jar-with-dependencies</span>.jar<br>Exception <span class="hljs-keyword">in</span> thread <span class="hljs-string">&quot;main&quot;</span> java.lang.NoClassDefFoundError: java/util/logging/Logger<br>        at org.yaml.snakeyaml.internal.Logger.&lt;init&gt;(Logger.java:<span class="hljs-number">30</span>)<br>        at org.yaml.snakeyaml.internal.Logger.getLogger(Logger.java:<span class="hljs-number">34</span>)<br>        at org.yaml.snakeyaml.TypeDescription.&lt;clinit&gt;(TypeDescription.java:<span class="hljs-number">43</span>)<br>        at org.yaml.snakeyaml.constructor.Constructor.&lt;init&gt;(Constructor.java:<span class="hljs-number">60</span>)<br>        at org.yaml.snakeyaml.constructor.Constructor.&lt;init&gt;(Constructor.java:<span class="hljs-number">50</span>)<br>        at org.yaml.snakeyaml.Yaml.&lt;init&gt;(Yaml.java:<span class="hljs-number">64</span>)<br>        at com.gugumin.tim.pojo.Config.filling(Config.java:<span class="hljs-number">32</span>)<br>        at com.gugumin.tim.pojo.Config.load(Config.java:<span class="hljs-number">27</span>)<br>        at com.gugumin.tim.App.main(App.java:<span class="hljs-number">26</span>)<br>Caused by: java.lang.ClassNotFoundException: java.util.logging.Logger<br>        at java.base/jdk.internal.loader.BuiltinClassLoader.loadClass(BuiltinClassLoader.java:<span class="hljs-number">581</span>)<br>        at java.base/jdk.internal.loader.ClassLoaders<span class="hljs-variable">$AppClassLoader</span>.loadClass(ClassLoaders.java:<span class="hljs-number">178</span>)<br>        at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:<span class="hljs-number">521</span>)<br>        ... <span class="hljs-number">9</span> more<br></code></pre></td></tr></table></figure>
+
+<p>哦呀，报错了，看起来是找不到类，说明我们导出的jre还是有问题，既然缺少了那就继续加入引入就好了。</p>
+<p>我们要先确定<code>java.util.logging.Logger</code>是属于哪个模块下的类，我们可以使用IDEA定位类去找到对应的模块</p>
+<p><img src="https://s2.loli.net/2024/08/25/1DIl623efW7O9Q5.png" srcset="/img/loading.gif" lazyload alt="image-20240825125902030"></p>
+<p>我们知道了模块名<code>java.logging</code>，再把模块加到命令中继续提取jre就好，演示过程：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs powershell"><span class="hljs-built_in">PS</span> E:\Temp\Example\GuGu_Typora_Image_Magic\target&gt; jlink <span class="hljs-literal">--add-modules</span> <span class="hljs-string">&quot;java.base,java.compiler,java.instrument,jdk.unsupported,java.logging&quot;</span> <span class="hljs-literal">--output</span> <span class="hljs-string">&quot;./jre&quot;</span><br>错误: directory already exists: .\jre<br><span class="hljs-built_in">PS</span> E:\Temp\Example\GuGu_Typora_Image_Magic\target&gt; <span class="hljs-built_in">remove-item</span> jre <span class="hljs-literal">-Recurse</span> <span class="hljs-literal">-Force</span><br><span class="hljs-built_in">PS</span> E:\Temp\Example\GuGu_Typora_Image_Magic\target&gt; jlink <span class="hljs-literal">--add-modules</span> <span class="hljs-string">&quot;java.base,java.compiler,java.instrument,jdk.unsupported,java.logging&quot;</span> <span class="hljs-literal">--output</span> <span class="hljs-string">&quot;./jre&quot;</span><br><span class="hljs-built_in">PS</span> E:\Temp\Example\GuGu_Typora_Image_Magic\target&gt; .\jre\bin\java.exe <span class="hljs-literal">-jar</span> .\gugu_typora_image_magic<span class="hljs-literal">-1</span>.<span class="hljs-number">0.0</span><span class="hljs-literal">-jar-with-dependencies</span>.jar<br>Exception <span class="hljs-keyword">in</span> thread <span class="hljs-string">&quot;main&quot;</span> java.lang.NoClassDefFoundError: java/beans/IntrospectionException<br>        at org.yaml.snakeyaml.constructor.BaseConstructor.getPropertyUtils(BaseConstructor.java:<span class="hljs-number">640</span>)<br>        at org.yaml.snakeyaml.constructor.BaseConstructor.addTypeDescription(BaseConstructor.java:<span class="hljs-number">659</span>)<br>        at org.yaml.snakeyaml.constructor.Constructor.&lt;init&gt;(Constructor.java:<span class="hljs-number">107</span>)<br>        at org.yaml.snakeyaml.constructor.Constructor.&lt;init&gt;(Constructor.java:<span class="hljs-number">60</span>)<br>        at org.yaml.snakeyaml.constructor.Constructor.&lt;init&gt;(Constructor.java:<span class="hljs-number">50</span>)<br>        at org.yaml.snakeyaml.Yaml.&lt;init&gt;(Yaml.java:<span class="hljs-number">64</span>)<br>        at com.gugumin.tim.pojo.Config.filling(Config.java:<span class="hljs-number">32</span>)<br>        at com.gugumin.tim.pojo.Config.load(Config.java:<span class="hljs-number">27</span>)<br>        at com.gugumin.tim.App.main(App.java:<span class="hljs-number">26</span>)<br>Caused by: java.lang.ClassNotFoundException: java.beans.IntrospectionException<br>        at java.base/jdk.internal.loader.BuiltinClassLoader.loadClass(BuiltinClassLoader.java:<span class="hljs-number">581</span>)<br>        at java.base/jdk.internal.loader.ClassLoaders<span class="hljs-variable">$AppClassLoader</span>.loadClass(ClassLoaders.java:<span class="hljs-number">178</span>)<br>        at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:<span class="hljs-number">521</span>)<br>        ... <span class="hljs-number">9</span> more<br><span class="hljs-built_in">PS</span> E:\Temp\Example\GuGu_Typora_Image_Magic\target&gt; <span class="hljs-built_in">remove-item</span> jre <span class="hljs-literal">-Recurse</span> <span class="hljs-literal">-Force</span>;jlink <span class="hljs-literal">--add-modules</span> <span class="hljs-string">&quot;java.base,java.compiler,java.instrument,jdk.unsupported,java.logging,java.desktop&quot;</span> <span class="hljs-literal">--output</span> <span class="hljs-string">&quot;./jre&quot;</span><br><span class="hljs-built_in">PS</span> E:\Temp\Example\GuGu_Typora_Image_Magic\target&gt; .\jre\bin\java.exe <span class="hljs-literal">-jar</span> .\gugu_typora_image_magic<span class="hljs-literal">-1</span>.<span class="hljs-number">0.0</span><span class="hljs-literal">-jar-with-dependencies</span>.jar<br>Exception <span class="hljs-keyword">in</span> thread <span class="hljs-string">&quot;main&quot;</span> java.lang.RuntimeException: Please provide image path<br>        at com.gugumin.tim.utils.ValidUtil.checkPath(ValidUtil.java:<span class="hljs-number">18</span>)<br>        at com.gugumin.tim.App.main(App.java:<span class="hljs-number">27</span>)<br></code></pre></td></tr></table></figure>
+
+<p>上面的过程中还出现了缺少的一个模块，我们再定位类再引入它，至此程序已经能够启动了，抛出的异常是属于自己编写的代码逻辑，后续还出现类似的错误可以根据上面的思路进行排查。</p>
+<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><p>对比其他其他语言，不能直接一步到位编译成二进制可执行文件，而且就算源码通过编译打包，对于Java来说这些都是可逆向的，源码安全性差。</p>
+<h2 id="exe4j"><a href="#exe4j" class="headerlink" title="exe4j"></a>exe4j</h2><p>上面的方案有说到不能一步到位生成二进制文件，这里再介绍一下生成二进制可执行文件的方法。</p>
+<p>使用exe4j这个工具，我们可以让Java编译打包的jar生成伪二进制可执行文件。</p>
+<p>为什么会带伪呢？因为这个东西的原理是压缩成exe执行的时候再解压成jar，通过执行命令来运行…</p>
+<p>下面直接贴一些链接来了解它：</p>
+<p><a target="_blank" rel="noopener" href="https://juejin.cn/post/7032128978546753572">使用 exe4j 将 jar 包生成 .exe 文件（敲详细）</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/jepson6669/p/9211220.html">exe4j生成的exe反编译成java代码</a></p>
+<h2 id="Native-Image"><a href="#Native-Image" class="headerlink" title="Native Image"></a>Native Image</h2><p>Java难道就不可以编译成二进制文件了吗？是可以，但是得使用到GraalVM的17版本及其以上。</p>
+<p>JVM其实是用很多不同的版本，JVM是有一套规范，实现了这套规范的都可以作为JVM。</p>
+<p>我们常用的应该是HotSpot的JVM吧，这里要介绍的JVM是GraalVM，它与HotSpot的侧重点不同，它能够实现编译二进制可执行文件。</p>
+<p>它能够编译成二进制可执行文件的功能称之为Native Image，这里先贴官网文档链接来提供快速了解：</p>
+<p><a target="_blank" rel="noopener" href="https://www.graalvm.org/22.0/reference-manual/native-image/">https://www.graalvm.org/22.0/reference-manual/native-image/</a></p>
+<p>它的实际操作与上面的提取JDK9以及之后的jre有些类似，但也要稍微复杂一些。</p>
+<p>一开始还是要分析程序所涉及的依赖与操作(反射等)，这些最好还是一开始编写的时候就顺带编写，当然事后也是可以通过工具来分析。</p>
+<p>官方的文档也已经描述了安装Native Image的过程：<a target="_blank" rel="noopener" href="https://www.graalvm.org/latest/docs/getting-started/windows/%EF%BC%8C%E4%B9%9F%E5%8F%AF%E4%BB%A5%E8%87%AA%E8%A1%8C%E6%90%9C%E7%B4%A2%E5%85%B6%E4%BB%96%E6%96%87%E7%AB%A0%E6%9D%A5%E5%AE%8C%E6%88%90%E7%8E%AF%E5%A2%83%E7%9A%84%E5%AE%89%E8%A3%85%E3%80%82">https://www.graalvm.org/latest/docs/getting-started/windows/，也可以自行搜索其他文章来完成环境的安装。</a></p>
+<p>下面列举个编译示例演示。</p>
+<ol>
+<li><p>分析jar运行时动态配置等信息</p>
+<p>这一部分可以通过GraalVM的工具生成或者编写代码时留意顺带编写。这里演示是先用工具分析jar，如有缺失再手动补齐。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs powershell"><span class="hljs-built_in">PS</span> E:\Temp\Example\GuGu_Typora_Image_Magic\target&gt; java <span class="hljs-literal">--version</span><br>java <span class="hljs-number">21.0</span>.<span class="hljs-number">2</span> <span class="hljs-number">2024</span><span class="hljs-literal">-01-16</span> LTS<br>Java(TM) SE Runtime Environment Oracle GraalVM <span class="hljs-number">21.0</span>.<span class="hljs-number">2</span>+<span class="hljs-number">13.1</span> (build <span class="hljs-number">21.0</span>.<span class="hljs-number">2</span>+<span class="hljs-number">13</span><span class="hljs-literal">-LTS-jvmci-23</span>.<span class="hljs-number">1</span><span class="hljs-literal">-b30</span>)<br>Java HotSpot(TM) <span class="hljs-number">64</span><span class="hljs-literal">-Bit</span> Server VM Oracle GraalVM <span class="hljs-number">21.0</span>.<span class="hljs-number">2</span>+<span class="hljs-number">13.1</span> (build <span class="hljs-number">21.0</span>.<span class="hljs-number">2</span>+<span class="hljs-number">13</span><span class="hljs-literal">-LTS-jvmci-23</span>.<span class="hljs-number">1</span><span class="hljs-literal">-b30</span>, mixed mode, sharing)<br><span class="hljs-built_in">PS</span> E:\Temp\Example\GuGu_Typora_Image_Magic\target&gt; java <span class="hljs-literal">-agentlib</span>:native<span class="hljs-literal">-image-agent</span>=config<span class="hljs-literal">-output-dir</span>=./native<span class="hljs-literal">-image-config</span> <span class="hljs-literal">-jar</span> .\gugu_typora_image_magic<span class="hljs-literal">-1</span>.<span class="hljs-number">0.0</span><span class="hljs-literal">-jar-with-dependencies</span>.jar<br>Exception <span class="hljs-keyword">in</span> thread <span class="hljs-string">&quot;main&quot;</span> java.lang.RuntimeException: Please provide image path<br>        at com.gugumin.tim.utils.ValidUtil.checkPath(ValidUtil.java:<span class="hljs-number">18</span>)<br>        at com.gugumin.tim.App.main(App.java:<span class="hljs-number">27</span>)<br></code></pre></td></tr></table></figure>
+
+<p>上面命令的参数，这里贴一个官网文档链接：<a target="_blank" rel="noopener" href="https://www.graalvm.org/latest/reference-manual/native-image/metadata/AutomaticMetadataCollection/">https://www.graalvm.org/latest/reference-manual/native-image/metadata/AutomaticMetadataCollection/</a></p>
+<p>执行玩上述的命令后，当前目录下生成了<code>native-image-config</code>文件夹，该文件夹内容结构如下：</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs cmd">PS E:\Temp\Example\GuGu_Typora_Image_Magic\target&gt; <span class="hljs-built_in">tree</span> /F .\native-image-config\<br>卷 Data 的文件夹 <span class="hljs-built_in">PATH</span> 列表<br>卷序列号为 xxxx-xxxx<br><span class="hljs-function">E:\<span class="hljs-title">TEMP</span>\<span class="hljs-title">EXAMPLE</span>\<span class="hljs-title">GUGU_TYPORA_IMAGE_MAGIC</span>\<span class="hljs-title">TARGET</span>\<span class="hljs-title">NATIVE</span>-<span class="hljs-title">IMAGE</span>-<span class="hljs-title">CONFIG</span></span><br><span class="hljs-function">│  <span class="hljs-title">jni</span>-<span class="hljs-title">config.json</span></span><br><span class="hljs-function">│  <span class="hljs-title">predefined</span>-<span class="hljs-title">classes</span>-<span class="hljs-title">config.json</span></span><br><span class="hljs-function">│  <span class="hljs-title">proxy</span>-<span class="hljs-title">config.json</span></span><br><span class="hljs-function">│  <span class="hljs-title">reflect</span>-<span class="hljs-title">config.json</span></span><br><span class="hljs-function">│  <span class="hljs-title">resource</span>-<span class="hljs-title">config.json</span></span><br><span class="hljs-function">│  <span class="hljs-title">serialization</span>-<span class="hljs-title">config.json</span></span><br><span class="hljs-function">│</span><br><span class="hljs-function">└─<span class="hljs-title">agent</span>-<span class="hljs-title">extracted</span>-<span class="hljs-title">predefined</span>-<span class="hljs-title">classes</span></span><br></code></pre></td></tr></table></figure>
+
+<p>上面的配置文件以<code>.json</code>格式存储，这部分的内容可以参考官方文档：<a target="_blank" rel="noopener" href="https://www.graalvm.org/latest/reference-manual/native-image/dynamic-features/">https://www.graalvm.org/latest/reference-manual/native-image/dynamic-features/</a></p>
+</li>
+<li><p>编译</p>
+<p>上面我们可以得到程序的动态配置，接下来就需要使用到C++环境来执行native-image命令来编译(这一部分是之前安装visual stodio的C++组件获得的)。</p>
+<p><img src="https://i.postimg.cc/htTM8sjv/Snipaste-2024-08-27-13-28-13.png" srcset="/img/loading.gif" lazyload alt="Snipaste-2024-08-27-13-28-13.png"></p>
+<p>接下来我们就使用native-image来编译二进制可执行文件：</p>
+<p><img src="https://i.postimg.cc/6pZ2y1Qj/Snipaste-2024-08-27-13-28-13.png" srcset="/img/loading.gif" lazyload alt="image-20240827130040676"></p>
+<p>上面出了点小问题，但这里先解释一下参数：</p>
+<p><code>-H:ConfigurationFileDirectories</code>：指定编译配置文件夹路径，就是我们在上面通过工具生成的配置文件夹。</p>
+<p><code>--no-fallback</code>：生成独立的可执行文件夹（不包括其他配置文件夹如DLL等）</p>
+<p>上面的小问题，按它提示说的，再加个参数忽略检查即可。</p>
+<p><img src="https://i.postimg.cc/bwSCd8b7/Snipaste-2024-08-27-13-28-13.png" srcset="/img/loading.gif" lazyload alt="image-20240827130533092.png"></p>
+<p>至此已经生成了一个可执行二进制文件，我们直接将它丢入虚拟机中执行试一试：</p>
+<p><img src="https://i.postimg.cc/vHvv2TyL/Snipaste-2024-08-27-13-21-14.png" srcset="/img/loading.gif" lazyload alt="Snipaste-2024-08-27-13-21-14.png"></p>
+<p>可以看到，在没有运行时环境下也能正常运行，而且编译成了二进制后源码安全性提高了，使得更不容易得到Java源代码。</p>
+</li>
+</ol>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>Java不太适合处理有分发需求的程序，整个过程比较繁琐，建议还是使用其他语言编写分发吧…</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%B0%8F%E7%8E%A9%E6%84%8F/" class="category-chain-item">小玩意</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Java/" class="print-no-link">#Java</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Java应用程序的分发</div>
+      <div>https://blog.gugu.dev/2024/08/27/Java应用程序的分发/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>MinMin</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年8月27日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/08/13/%E5%B8%AE%E5%8A%A9Plex%E5%8C%B9%E9%85%8D%E5%85%83%E6%95%B0%E6%8D%AE%E8%80%8C%E8%BF%9B%E8%A1%8C%E6%89%B9%E9%87%8F%E9%87%8D%E5%91%BD%E5%90%8D/" title="帮助Plex匹配动画元数据而进行批量重命名">
+                        <span class="hidden-mobile">帮助Plex匹配动画元数据而进行批量重命名</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
