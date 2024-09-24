@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>chrome使用域名访问局域网服务响应慢的问题</title>
+    <link href="/2024/09/24/Chrome%E4%BD%BF%E7%94%A8%E5%9F%9F%E5%90%8D%E8%AE%BF%E9%97%AE%E5%B1%80%E5%9F%9F%E7%BD%91%E6%9C%8D%E5%8A%A1%E5%93%8D%E5%BA%94%E6%85%A2%E7%9A%84%E9%97%AE%E9%A2%98/"/>
+    <url>/2024/09/24/Chrome%E4%BD%BF%E7%94%A8%E5%9F%9F%E5%90%8D%E8%AE%BF%E9%97%AE%E5%B1%80%E5%9F%9F%E7%BD%91%E6%9C%8D%E5%8A%A1%E5%93%8D%E5%BA%94%E6%85%A2%E7%9A%84%E9%97%AE%E9%A2%98/</url>
+    
+    <content type="html"><![CDATA[<h1 id="Chrome使用域名访问局域网服务响应慢的问题"><a href="#Chrome使用域名访问局域网服务响应慢的问题" class="headerlink" title="Chrome使用域名访问局域网服务响应慢的问题"></a>Chrome使用域名访问局域网服务响应慢的问题</h1><p>服务部署在局域网上的机器中，同一局域网通过Chrome浏览器访问服务时载入花了很长的时间。</p><p><img src="https://s2.loli.net/2024/09/24/izKJABCE6uXYO9e.png" alt="image-20240924193530471"></p><p>这里看到初始连接就花了21秒，这很奇怪。</p><h2 id="排查过程"><a href="#排查过程" class="headerlink" title="排查过程"></a>排查过程</h2><p>初步怀疑是服务出了问题，然后开始直接使用<code>telnet</code>去连接服务端口</p><p><img src="https://s2.loli.net/2024/09/24/umZo49cYabEAx6B.png" alt="image-20240924193907070"></p><p>这里没有感觉到响应延迟，开始检查变量。</p><p>这里两次响应速度结果的差异在于客户端不同，一个是Chrome，一个是telnet。</p><p>开始怀疑是Chrome的问题，换其他浏览器再看看是否出现不一样的结果，换Firefox试试。</p><p><img src="https://s2.loli.net/2024/09/24/R9fNe7iuwxdg3so.png" alt="image-20240924194221225"></p><p>使用Firefox并没有出现响应时间长的问题，那估计问题就出在Chrome上了。</p><p>再次使用Chrome去访问内网服务，这次不使用域名</p><p><img src="https://s2.loli.net/2024/09/24/vNFr9ISwpXjU2Y8.png" alt="image-20240924195314618"></p><p>发现居然响应时间长的现象不存在了，又发现一组变量：域名与IP。</p><p>现在的问题变成了，为什么Chrome使用域名访问与直接用IP访问会出现差异？</p><p>使用<code>nslookup</code>查询一下域名，发现了端倪</p><p><img src="https://s2.loli.net/2024/09/24/gxF9YK7z3r2PLZk.png" alt="image-20240924195626879"></p><p>响应的地址有两个，其中有一个是无效的IP地址！</p><p>这里感觉大概就找到了问题所在，回去查看一下路由器的DNS设置，确实如此，看来之前是自己加了重复映射而且还打错了IP…</p><p>删除了错误的IP映射后，问题解决了。</p><h2 id="事后"><a href="#事后" class="headerlink" title="事后"></a>事后</h2><p>为何Chrome会显示在初始连接这么耗时呢？去看<a href="https://developer.chrome.com/docs/devtools/network/reference?utm_source=devtools&hl=zh-cn#timing-explanation">Chrome对于耗时指标的说明</a></p><p><img src="https://s2.loli.net/2024/09/24/TuXgl1ONeVqCcka.png" alt="image-20240924195030834"></p><p>建立连接…TCP握手或<strong>重试</strong>以及协商SSL，这里看来是重试在耗时。</p><p>Chrome在对着无效的IP尝试进行连接然后失败，再重试，然后耗时21秒，但这里就不得不提Firefox了。</p><p>Firefox并没有受到错误IP的影响，依然能快速的返回正确的服务响应，这里体现了Chrome与Firefox对于多IP的处理方式的不同。</p><p>我猜测Firefox对于多IP会进行一个并发的请求处理，而Chrome则是进行轮询处理，可以做下实验测试一下猜想。<s>(也可以看源码对这一块的处理)</s></p><p>将正确的IP设置在第一位，错误的IP设置到第二位，然后去通过域名访问服务</p><p><img src="https://s2.loli.net/2024/09/24/hXPdT38oDvjfHtb.png" alt="image-20240924202546591"></p><p>发现长时间响应问题不存在了，可以证实Chrome是采用顺位轮询的方式来处理多IP的情况。</p><p>这样看来Firefox做的比Chrome要好啊…</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>运维</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>DNS</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Java应用程序的分发</title>
     <link href="/2024/08/27/Java%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E7%9A%84%E5%88%86%E5%8F%91/"/>
     <url>/2024/08/27/Java%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E7%9A%84%E5%88%86%E5%8F%91/</url>
