@@ -16,22 +16,27 @@
   <meta name="author" content="MinMin">
   <meta name="keywords" content="MinMin,MinMin Blog">
   
-    <meta name="description" content="HTML中的相对路径解析在项目中遇到过一个奇怪的问题，现象是通过HTTPS协议去访问项目，结果浏览器发出的样式请求却是HTTP协议，导致了跨域，无法加载样式文件。">
+    <meta name="description" content="自建web服务发布时,不想使用80端口就随手起了个10080作为端口，结果发现无法正常访问...">
 <meta property="og:type" content="article">
-<meta property="og:title" content="html中的相对路径解析">
-<meta property="og:url" content="https://blog.gugu.dev/2024/02/21/html%E4%B8%AD%E7%9A%84%E7%9B%B8%E5%AF%B9%E8%B7%AF%E5%BE%84%E8%A7%A3%E6%9E%90/index.html">
+<meta property="og:title" content="关于浏览器的非安全端口">
+<meta property="og:url" content="https://blog.gugu.dev/2025/01/06/%E5%85%B3%E4%BA%8E%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9A%84%E9%9D%9E%E5%AE%89%E5%85%A8%E7%AB%AF%E5%8F%A3/index.html">
 <meta property="og:site_name" content="MinMin的鸽子窝">
-<meta property="og:description" content="HTML中的相对路径解析在项目中遇到过一个奇怪的问题，现象是通过HTTPS协议去访问项目，结果浏览器发出的样式请求却是HTTP协议，导致了跨域，无法加载样式文件。">
+<meta property="og:description" content="自建web服务发布时,不想使用80端口就随手起了个10080作为端口，结果发现无法正常访问...">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-02-21T05:06:58.671Z">
-<meta property="article:modified_time" content="2024-02-20T13:22:43.506Z">
+<meta property="og:image" content="https://i.postimg.cc/fy1yq0VW/screenshot-10.png">
+<meta property="og:image" content="https://i.postimg.cc/YCzg0b41/screenshot-10.png">
+<meta property="og:image" content="https://i.postimg.cc/tghzh6Bb/screenshot-10.png">
+<meta property="og:image" content="https://i.postimg.cc/wBG0xz4y/screenshot-10.png">
+<meta property="article:published_time" content="2025-01-06T13:27:58.000Z">
+<meta property="article:modified_time" content="2025-01-06T13:27:58.084Z">
 <meta property="article:author" content="MinMin">
 <meta property="article:tag" content="浏览器">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://i.postimg.cc/fy1yq0VW/screenshot-10.png">
   
   
   
-  <title>html中的相对路径解析 - MinMin的鸽子窝</title>
+  <title>关于浏览器的非安全端口 - MinMin的鸽子窝</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -197,7 +202,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="html中的相对路径解析"></span>
+            <span id="subtitle" data-typed-text="关于浏览器的非安全端口"></span>
           
         </div>
 
@@ -208,8 +213,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-02-21 13:06" pubdate>
-          2024年2月21日 下午
+        <time datetime="2025-01-06 21:27" pubdate>
+          2025年1月6日 晚上
         </time>
       </span>
     
@@ -220,7 +225,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          429 字
+          456 字
         
       </span>
     
@@ -268,26 +273,32 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">html中的相对路径解析</h1>
+            <h1 id="seo-header">关于浏览器的非安全端口</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="HTML中的相对路径解析"><a href="#HTML中的相对路径解析" class="headerlink" title="HTML中的相对路径解析"></a>HTML中的相对路径解析</h1><p>在项目中遇到过一个奇怪的问题，现象是通过HTTPS协议去访问项目，结果浏览器发出的样式请求却是HTTP协议，导致了跨域，无法加载样式文件。</p>
-<span id="more"></span>
-
-<p>项目是使用JSP来做的HTML输出，去查看JSP代码，看到样式链接的写法为相对路径</p>
-<p>例如<code>&#39;./bootstarp.css&#39;</code>，然后浏览器显示的URL协议确实是HTTPS，按道理说相对路径的解析应该也是HTTPS才对</p>
-<p>百思不得其解</p>
-<p>自然就想知道浏览器是如何解析相对路径的，查阅资料得知</p>
-<p>浏览器解析相对路径是先查看有没有base标签</p>
-<p>如果有就会使用base标签的值来拼接相对路径</p>
-<p>如果没有就会自己获取当前URL来处理拼接</p>
-<h2 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h2><p>再次查看JSP文件，发现确实是有base标签，但也没有写死，base标签的值是从request获取的，那就是服务端获取到的request的URL是HTTP协议了</p>
-<p>项目的访问链路是根Nginx-》项目Nginx-》Tomcat</p>
-<p>排查项目Nginx发现Nginx没有配置HTTPS协议…反向代理转发的是HTTP</p>
-<p>在beta环境，使用openssl创立证书，然后发现nginx没有安装SSL模块，无法开启HTTPS，还得重新编译安装…Tomcat也没有开启HTTPS…用JDK的keytool生成JKS证书给Tomcat开启HTTPS</p>
-<p>万事俱备，重新访问HTTPS的beta环境发现依旧无法发出正确的请求，只有一个地方没有排查了，去找根Nginx的负责人获取项目的Nginx配置发现，HTTP、HTTPS反向代理的都是HTTP协议…申请更改后果然解决了问题</p>
+                <h1 id="关于浏览器的非安全端口"><a href="#关于浏览器的非安全端口" class="headerlink" title="关于浏览器的非安全端口"></a>关于浏览器的非安全端口</h1><p>我不想使用默认端口而随便起了个端口10080，结果网站无法正常访问，chrome浏览器打开出现：</p>
+<p><img src="https://i.postimg.cc/fy1yq0VW/screenshot-10.png" srcset="/img/loading.gif" lazyload alt="Chrome显示图"></p>
+<p>Chrome的提示并不明显，需要注意错误码<strong>ERR_UNSAFE_PORT</strong>，这里还是要提一嘴Firefox，它是这样显示的：</p>
+<p><img src="https://i.postimg.cc/YCzg0b41/screenshot-10.png" srcset="/img/loading.gif" lazyload alt="Firefox显示图"></p>
+<p>比chrome清晰太多，看来是浏览器出于自身防护机制对请求进行了拦截。</p>
+<h2 id="为什么会这样？"><a href="#为什么会这样？" class="headerlink" title="为什么会这样？"></a>为什么会这样？</h2><p>因为网络安全的问题，如果在浏览器中访问攻击者的网站，在符合条件的情况下，<strong>攻击者可以穿透NAT访问被攻击者的任意端口</strong>。</p>
+<p>浏览器因为这种攻击而限制了不少端口，具体情况可以自行搜索<strong>NAT Slipstreaming</strong>，下面也给出一些文章介绍。</p>
+<p>相关文章：</p>
+<p><a target="_blank" rel="noopener" href="https://www.secrss.com/articles/26748">防火墙和路由器的滑铁卢：NAT Slipstreaming攻击</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.6cloudtech.com/portal/article/index/id/349.html">NAT Slipstreaming——泄露内网信息的新型攻击浅析</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.oschina.net/news/128345/chrome-blocks-7-more-ports-to-stop-nat-slipstreaming-attacks">Chrome 屏蔽多个 TCP 端口，以阻止 NAT Slipstreaming 攻击</a></p>
+<p><a target="_blank" rel="noopener" href="https://docsxyz.com/wiki/news/google-deploys-new-chrome-mitigations-against-new-nat-slipstreaming-20210201">Google部署Chrome缓解措施来抵御新的 NAT Slipstreaming 攻击</a></p>
+<h2 id="如何解除访问限制？"><a href="#如何解除访问限制？" class="headerlink" title="如何解除访问限制？"></a>如何解除访问限制？</h2><h3 id="Chrome"><a href="#Chrome" class="headerlink" title="Chrome"></a>Chrome</h3><p>启动chrome时传入参数<code>--explicitly-allowed-ports=[端口1,端口2]</code>，使其允许访问不安全的端口。</p>
+<p>示例：<code>PS C:\Program Files\Google\Chrome\Application&gt; .\chrome.exe --explicitly-allowed-ports=10080</code></p>
+<p>也可以直接创建一个快捷方式，在目标属性值上加上参数即可。</p>
+<p><img src="https://i.postimg.cc/tghzh6Bb/screenshot-10.png" srcset="/img/loading.gif" lazyload alt="快捷方式的设置图"></p>
+<h3 id="Firefox"><a href="#Firefox" class="headerlink" title="Firefox"></a>Firefox</h3><p>地址栏输入<code>about:config</code>，然后配置值<code>network.security.ports.banned.override</code>设置为需要允许的端口即可。</p>
+<p><img src="https://i.postimg.cc/wBG0xz4y/screenshot-10.png" srcset="/img/loading.gif" lazyload alt="Firefox设置图"></p>
+<h2 id="后话"><a href="#后话" class="headerlink" title="后话"></a>后话</h2><p>有一丁点计算机的知识，也有听过一些“过于夸张”的话，比如打开个链接就会被盗取信息什么的。</p>
+<p>以前是不屑一顾的，因为自己是想不通就http访问网站而已，是做不到这些的。</p>
+<p>现在，有点敬畏了，自己也不过是井底之蛙。</p>
 
                 
               </div>
@@ -295,27 +306,6 @@
             <hr/>
             <div>
               <div class="post-metas my-3">
-  
-    <div class="post-meta mr-3 d-flex align-items-center">
-      <i class="iconfont icon-category"></i>
-      
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E5%89%8D%E7%AB%AF/" class="category-chain-item">前端</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-    </div>
   
   
     <div class="post-meta">
@@ -333,8 +323,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>html中的相对路径解析</div>
-      <div>https://blog.gugu.dev/2024/02/21/html中的相对路径解析/</div>
+      <div>关于浏览器的非安全端口</div>
+      <div>https://blog.gugu.dev/2025/01/06/关于浏览器的非安全端口/</div>
     </div>
     <div class="license-meta">
       
@@ -346,7 +336,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年2月21日</div>
+          <div>2025年1月6日</div>
         </div>
       
       
@@ -378,18 +368,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/02/21/Java%E7%BB%88%E6%AD%A2%E7%BA%BF%E7%A8%8B%E7%9A%84%E6%96%B9%E6%B3%95/" title="Java终止线程的方法">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Java终止线程的方法</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/02/21/Gradle%E5%AD%A6%E4%B9%A0-6-%E2%80%94%E2%80%94%E4%BE%9D%E8%B5%96/" title="Gradle学习[6]——依赖">
-                        <span class="hidden-mobile">Gradle学习[6]——依赖</span>
+                      <a href="/2024/09/24/Chrome%E4%BD%BF%E7%94%A8%E5%9F%9F%E5%90%8D%E8%AE%BF%E9%97%AE%E5%B1%80%E5%9F%9F%E7%BD%91%E6%9C%8D%E5%8A%A1%E5%93%8D%E5%BA%94%E6%85%A2%E7%9A%84%E9%97%AE%E9%A2%98/" title="chrome使用域名访问局域网服务响应慢的问题">
+                        <span class="hidden-mobile">chrome使用域名访问局域网服务响应慢的问题</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
