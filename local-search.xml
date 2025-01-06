@@ -11,6 +11,12 @@
     <content type="html"><![CDATA[<h1 id="关于浏览器的非安全端口"><a href="#关于浏览器的非安全端口" class="headerlink" title="关于浏览器的非安全端口"></a>关于浏览器的非安全端口</h1><p>我不想使用默认端口而随便起了个端口10080，结果网站无法正常访问，chrome浏览器打开出现：</p><p><img src="https://i.postimg.cc/fy1yq0VW/screenshot-10.png" alt="Chrome显示图"></p><p>Chrome的提示并不明显，需要注意错误码<strong>ERR_UNSAFE_PORT</strong>，这里还是要提一嘴Firefox，它是这样显示的：</p><p><img src="https://i.postimg.cc/YCzg0b41/screenshot-10.png" alt="Firefox显示图"></p><p>比chrome清晰太多，看来是浏览器出于自身防护机制对请求进行了拦截。</p><h2 id="为什么会这样？"><a href="#为什么会这样？" class="headerlink" title="为什么会这样？"></a>为什么会这样？</h2><p>因为网络安全的问题，如果在浏览器中访问攻击者的网站，在符合条件的情况下，<strong>攻击者可以穿透NAT访问被攻击者的任意端口</strong>。</p><p>浏览器因为这种攻击而限制了不少端口，具体情况可以自行搜索<strong>NAT Slipstreaming</strong>，下面也给出一些文章介绍。</p><p>相关文章：</p><p><a href="https://www.secrss.com/articles/26748">防火墙和路由器的滑铁卢：NAT Slipstreaming攻击</a></p><p><a href="https://www.6cloudtech.com/portal/article/index/id/349.html">NAT Slipstreaming——泄露内网信息的新型攻击浅析</a></p><p><a href="https://www.oschina.net/news/128345/chrome-blocks-7-more-ports-to-stop-nat-slipstreaming-attacks">Chrome 屏蔽多个 TCP 端口，以阻止 NAT Slipstreaming 攻击</a></p><p><a href="https://docsxyz.com/wiki/news/google-deploys-new-chrome-mitigations-against-new-nat-slipstreaming-20210201">Google部署Chrome缓解措施来抵御新的 NAT Slipstreaming 攻击</a></p><h2 id="如何解除访问限制？"><a href="#如何解除访问限制？" class="headerlink" title="如何解除访问限制？"></a>如何解除访问限制？</h2><h3 id="Chrome"><a href="#Chrome" class="headerlink" title="Chrome"></a>Chrome</h3><p>启动chrome时传入参数<code>--explicitly-allowed-ports=[端口1,端口2]</code>，使其允许访问不安全的端口。</p><p>示例：<code>PS C:\Program Files\Google\Chrome\Application&gt; .\chrome.exe --explicitly-allowed-ports=10080</code></p><p>也可以直接创建一个快捷方式，在目标属性值上加上参数即可。</p><p><img src="https://i.postimg.cc/tghzh6Bb/screenshot-10.png" alt="快捷方式的设置图"></p><h3 id="Firefox"><a href="#Firefox" class="headerlink" title="Firefox"></a>Firefox</h3><p>地址栏输入<code>about:config</code>，然后配置值<code>network.security.ports.banned.override</code>设置为需要允许的端口即可。</p><p><img src="https://i.postimg.cc/wBG0xz4y/screenshot-10.png" alt="Firefox设置图"></p><h2 id="后话"><a href="#后话" class="headerlink" title="后话"></a>后话</h2><p>有一丁点计算机的知识，也有听过一些“过于夸张”的话，比如打开个链接就会被盗取信息什么的。</p><p>以前是不屑一顾的，因为自己是想不通就http访问网站而已，是做不到这些的。</p><p>现在，有点敬畏了，自己也不过是井底之蛙。</p>]]></content>
     
     
+    <categories>
+      
+      <category>浏览器</category>
+      
+    </categories>
+    
     
     <tags>
       
