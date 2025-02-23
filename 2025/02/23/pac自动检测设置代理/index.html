@@ -16,27 +16,27 @@
   <meta name="author" content="MinMin">
   <meta name="keywords" content="MinMin,MinMin Blog">
   
-    <meta name="description" content="自建web服务发布时,不想使用80端口就随手起了个10080作为端口，结果发现无法正常访问...">
+    <meta name="description" content="起因是一打开浏览器发现SwitchyOmega已经不被chrome所支持，插件已经停止运行，需要找一个代理方案实现浏览器流量代理，我盯上了windows的代理服务器配置，就想着研究一下。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="关于浏览器的非安全端口">
-<meta property="og:url" content="https://blog.gugu.dev/2025/01/06/%E5%85%B3%E4%BA%8E%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9A%84%E9%9D%9E%E5%AE%89%E5%85%A8%E7%AB%AF%E5%8F%A3/index.html">
+<meta property="og:title" content="pac自动检测设置代理">
+<meta property="og:url" content="https://blog.gugu.dev/2025/02/23/pac%E8%87%AA%E5%8A%A8%E6%A3%80%E6%B5%8B%E8%AE%BE%E7%BD%AE%E4%BB%A3%E7%90%86/index.html">
 <meta property="og:site_name" content="MinMin的鸽子窝">
-<meta property="og:description" content="自建web服务发布时,不想使用80端口就随手起了个10080作为端口，结果发现无法正常访问...">
+<meta property="og:description" content="起因是一打开浏览器发现SwitchyOmega已经不被chrome所支持，插件已经停止运行，需要找一个代理方案实现浏览器流量代理，我盯上了windows的代理服务器配置，就想着研究一下。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://i.postimg.cc/fy1yq0VW/screenshot-10.png">
-<meta property="og:image" content="https://i.postimg.cc/YCzg0b41/screenshot-10.png">
-<meta property="og:image" content="https://i.postimg.cc/tghzh6Bb/screenshot-10.png">
-<meta property="og:image" content="https://i.postimg.cc/wBG0xz4y/screenshot-10.png">
-<meta property="article:published_time" content="2025-01-06T13:27:58.000Z">
-<meta property="article:modified_time" content="2025-01-06T13:37:51.380Z">
+<meta property="og:image" content="https://i.postimg.cc/KYLCpGZL/Snipaste-2025-02-23-14-57-53.png">
+<meta property="og:image" content="https://i.postimg.cc/bYxPmR6r/Screenshot-20250223-152046.jpg">
+<meta property="og:image" content="https://i.postimg.cc/YCbyXdL6/Snipaste-2025-02-23-15-39-52.png">
+<meta property="article:published_time" content="2025-02-23T06:34:35.000Z">
+<meta property="article:modified_time" content="2025-02-23T08:00:02.507Z">
 <meta property="article:author" content="MinMin">
-<meta property="article:tag" content="浏览器">
+<meta property="article:tag" content="Windows">
+<meta property="article:tag" content="代理">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://i.postimg.cc/fy1yq0VW/screenshot-10.png">
+<meta name="twitter:image" content="https://i.postimg.cc/KYLCpGZL/Snipaste-2025-02-23-14-57-53.png">
   
   
   
-  <title>关于浏览器的非安全端口 - MinMin的鸽子窝</title>
+  <title>pac自动检测设置代理 - MinMin的鸽子窝</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -202,7 +202,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="关于浏览器的非安全端口"></span>
+            <span id="subtitle" data-typed-text="pac自动检测设置代理"></span>
           
         </div>
 
@@ -213,8 +213,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-01-06 21:27" pubdate>
-          2025年1月6日 晚上
+        <time datetime="2025-02-23 14:34" pubdate>
+          2025年2月23日 下午
         </time>
       </span>
     
@@ -225,7 +225,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          456 字
+          585 字
         
       </span>
     
@@ -236,7 +236,7 @@
         
         
         
-          4 分钟
+          5 分钟
         
       </span>
     
@@ -273,32 +273,33 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">关于浏览器的非安全端口</h1>
+            <h1 id="seo-header">pac自动检测设置代理</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="关于浏览器的非安全端口"><a href="#关于浏览器的非安全端口" class="headerlink" title="关于浏览器的非安全端口"></a>关于浏览器的非安全端口</h1><p>我不想使用默认端口而随便起了个端口10080，结果网站无法正常访问，chrome浏览器打开出现：</p>
-<p><img src="https://i.postimg.cc/fy1yq0VW/screenshot-10.png" srcset="/img/loading.gif" lazyload alt="Chrome显示图"></p>
-<p>Chrome的提示并不明显，需要注意错误码<strong>ERR_UNSAFE_PORT</strong>，这里还是要提一嘴Firefox，它是这样显示的：</p>
-<p><img src="https://i.postimg.cc/YCzg0b41/screenshot-10.png" srcset="/img/loading.gif" lazyload alt="Firefox显示图"></p>
-<p>比chrome清晰太多，看来是浏览器出于自身防护机制对请求进行了拦截。</p>
-<h2 id="为什么会这样？"><a href="#为什么会这样？" class="headerlink" title="为什么会这样？"></a>为什么会这样？</h2><p>因为网络安全的问题，如果在浏览器中访问攻击者的网站，在符合条件的情况下，<strong>攻击者可以穿透NAT访问被攻击者的任意端口</strong>。</p>
-<p>浏览器因为这种攻击而限制了不少端口，具体情况可以自行搜索<strong>NAT Slipstreaming</strong>，下面也给出一些文章介绍。</p>
-<p>相关文章：</p>
-<p><a target="_blank" rel="noopener" href="https://www.secrss.com/articles/26748">防火墙和路由器的滑铁卢：NAT Slipstreaming攻击</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.6cloudtech.com/portal/article/index/id/349.html">NAT Slipstreaming——泄露内网信息的新型攻击浅析</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.oschina.net/news/128345/chrome-blocks-7-more-ports-to-stop-nat-slipstreaming-attacks">Chrome 屏蔽多个 TCP 端口，以阻止 NAT Slipstreaming 攻击</a></p>
-<p><a target="_blank" rel="noopener" href="https://docsxyz.com/wiki/news/google-deploys-new-chrome-mitigations-against-new-nat-slipstreaming-20210201">Google部署Chrome缓解措施来抵御新的 NAT Slipstreaming 攻击</a></p>
-<h2 id="如何解除访问限制？"><a href="#如何解除访问限制？" class="headerlink" title="如何解除访问限制？"></a>如何解除访问限制？</h2><h3 id="Chrome"><a href="#Chrome" class="headerlink" title="Chrome"></a>Chrome</h3><p>启动chrome时传入参数<code>--explicitly-allowed-ports=[端口1,端口2]</code>，使其允许访问不安全的端口。</p>
-<p>示例：<code>PS C:\Program Files\Google\Chrome\Application&gt; .\chrome.exe --explicitly-allowed-ports=10080</code></p>
-<p>也可以直接创建一个快捷方式，在目标属性值上加上参数即可。</p>
-<p><img src="https://i.postimg.cc/tghzh6Bb/screenshot-10.png" srcset="/img/loading.gif" lazyload alt="快捷方式的设置图"></p>
-<h3 id="Firefox"><a href="#Firefox" class="headerlink" title="Firefox"></a>Firefox</h3><p>地址栏输入<code>about:config</code>，然后配置值<code>network.security.ports.banned.override</code>设置为需要允许的端口即可。</p>
-<p><img src="https://i.postimg.cc/wBG0xz4y/screenshot-10.png" srcset="/img/loading.gif" lazyload alt="Firefox设置图"></p>
-<h2 id="后话"><a href="#后话" class="headerlink" title="后话"></a>后话</h2><p>有一丁点计算机的知识，也有听过一些“过于夸张”的话，比如打开个链接就会被盗取信息什么的。</p>
-<p>以前是不屑一顾的，因为自己是想不通就http访问网站而已，是做不到这些的。</p>
-<p>现在，有点敬畏了，自己也不过是井底之蛙。</p>
+                <h1 id="pac自动检测设置代理"><a href="#pac自动检测设置代理" class="headerlink" title="pac自动检测设置代理"></a>pac自动检测设置代理</h1><p>windows上的代理服务器设置上有三种配置：</p>
+<p><img src="https://i.postimg.cc/KYLCpGZL/Snipaste-2025-02-23-14-57-53.png" srcset="/img/loading.gif" lazyload alt="Snipaste-2025-02-23-14-57-53.png"></p>
+<p>之前我常用的是手动设置代理，心血来潮想看看一个按钮就搞定的自动检测设置是如何配置的。</p>
+<p>下面先介绍一下各个设置的情况吧。</p>
+<h2 id="使用设置脚本"><a href="#使用设置脚本" class="headerlink" title="使用设置脚本"></a>使用设置脚本</h2><p>上面图中的使用设置脚本，其实指的就是pac脚本。</p>
+<p>pac脚本是一个JavaScript脚本，使用约定的函数，自己编写规则来决定流量的走向。</p>
+<p>需要配置一个脚本地址，这个地址需要能在此网络上访问得到，我这边是将pac脚本放在了路由器上。</p>
+<p>一个简单的pac脚本：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">FindProxyForURL</span>(<span class="hljs-params">url, host</span>) &#123; <br>   <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;PROXY proxy.example.com:8080; DIRECT&quot;</span>; <br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>看上面的代码，是不是很像clash的流量规则？一看pac的历史，还是网景时代的产物，就有一种开倒车的感觉，哈哈哈。</p>
+<p>相关文章：<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/zh-cn/%E4%BB%A3%E7%90%86%E8%87%AA%E5%8A%A8%E9%85%8D%E7%BD%AE">代理自动配置</a>，看自身的需求，来决定自己实现或者套用成熟的pac脚本。</p>
+<h3 id="ps"><a href="#ps" class="headerlink" title="ps"></a>ps</h3><p>另外一提，Android也可以配置pac脚本，在wifi详情里边：</p>
+<p><img src="https://i.postimg.cc/bYxPmR6r/Screenshot-20250223-152046.jpg" srcset="/img/loading.gif" lazyload alt="Screenshot-20250223-152046.jpg"></p>
+<h2 id="自动检测设置"><a href="#自动检测设置" class="headerlink" title="自动检测设置"></a>自动检测设置</h2><p>一个按钮就能决定是否启动代理设置，一看就很方便。</p>
+<p>它这里其实使用到了WPAD，需要DHCP&#x2F;DNS来实现的网络代理自动发现协议。</p>
+<p>需要在DHCP服务器上配置，一般情况下在路由器上配置，我这里使用的是openwrt：</p>
+<p><img src="https://i.postimg.cc/YCbyXdL6/Snipaste-2025-02-23-15-39-52.png" srcset="/img/loading.gif" lazyload alt="Snipaste-2025-02-23-15-39-52.png"></p>
+<p>在DHCP选项上输入<code>252,[pac地址]</code>后保存应用，重启一下相关服务或者直接重启路由器即可生效。</p>
+<p>需要注意的是，由于是依赖DHCP实现，所以设备也需要使用到DHCP服务，也就是IP&#x2F;DNS自动设置，而非静态&#x2F;手动设置网络。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>windows的代理设置会改变http流量的走向，但是无法改变直接使用tcp&#x2F;udp的流量走向，这一部分需要应用支持使用系统代理来改变自身流量的走向。</p>
+<p>使用该方案可以抛弃掉浏览器的代理插件，现在的浏览器都默认支持pac或者使用系统代理设置，但是还需要注意一下WPAD协议导致的网络安全隐患。</p>
 
                 
               </div>
@@ -317,7 +318,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/%E5%AE%89%E5%85%A8/" class="category-chain-item">安全</a>
+  <a href="/categories/%E8%BF%90%E7%BB%B4/" class="category-chain-item">运维</a>
   
   
 
@@ -332,7 +333,9 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" class="print-no-link">#浏览器</a>
+        <a href="/tags/Windows/" class="print-no-link">#Windows</a>
+      
+        <a href="/tags/%E4%BB%A3%E7%90%86/" class="print-no-link">#代理</a>
       
     </div>
   
@@ -344,8 +347,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>关于浏览器的非安全端口</div>
-      <div>https://blog.gugu.dev/2025/01/06/关于浏览器的非安全端口/</div>
+      <div>pac自动检测设置代理</div>
+      <div>https://blog.gugu.dev/2025/02/23/pac自动检测设置代理/</div>
     </div>
     <div class="license-meta">
       
@@ -357,7 +360,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2025年1月6日</div>
+          <div>2025年2月23日</div>
         </div>
       
       
@@ -389,18 +392,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/02/23/pac%E8%87%AA%E5%8A%A8%E6%A3%80%E6%B5%8B%E8%AE%BE%E7%BD%AE%E4%BB%A3%E7%90%86/" title="pac自动检测设置代理">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">pac自动检测设置代理</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/09/24/Chrome%E4%BD%BF%E7%94%A8%E5%9F%9F%E5%90%8D%E8%AE%BF%E9%97%AE%E5%B1%80%E5%9F%9F%E7%BD%91%E6%9C%8D%E5%8A%A1%E5%93%8D%E5%BA%94%E6%85%A2%E7%9A%84%E9%97%AE%E9%A2%98/" title="chrome使用域名访问局域网服务响应慢的问题">
-                        <span class="hidden-mobile">chrome使用域名访问局域网服务响应慢的问题</span>
+                      <a href="/2025/01/06/%E5%85%B3%E4%BA%8E%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9A%84%E9%9D%9E%E5%AE%89%E5%85%A8%E7%AB%AF%E5%8F%A3/" title="关于浏览器的非安全端口">
+                        <span class="hidden-mobile">关于浏览器的非安全端口</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
