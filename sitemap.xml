@@ -503,13 +503,6 @@
   </url>
   
   <url>
-    <loc>https://blog.gugu.dev/tags/Docker/</loc>
-    <lastmod>2025-03-02</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://blog.gugu.dev/tags/Javascript/</loc>
     <lastmod>2025-03-02</lastmod>
     <changefreq>weekly</changefreq>
@@ -524,6 +517,13 @@
   </url>
   
   <url>
+    <loc>https://blog.gugu.dev/tags/%E7%88%AC%E8%99%AB/</loc>
+    <lastmod>2025-03-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.gugu.dev/tags/JVM/</loc>
     <lastmod>2025-03-02</lastmod>
     <changefreq>weekly</changefreq>
@@ -532,13 +532,6 @@
   
   <url>
     <loc>https://blog.gugu.dev/tags/Spring/</loc>
-    <lastmod>2025-03-02</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.gugu.dev/tags/%E7%88%AC%E8%99%AB/</loc>
     <lastmod>2025-03-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -567,6 +560,13 @@
   
   <url>
     <loc>https://blog.gugu.dev/tags/Android/</loc>
+    <lastmod>2025-03-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.gugu.dev/tags/Docker/</loc>
     <lastmod>2025-03-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -687,14 +687,14 @@
   </url>
   
   <url>
-    <loc>https://blog.gugu.dev/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E5%B0%8F%E7%8E%A9%E6%84%8F/%E8%BF%90%E7%BB%B4/</loc>
+    <loc>https://blog.gugu.dev/categories/%E5%90%8E%E7%AB%AF/%E7%99%BE%E5%BA%A6%E4%B8%80%E5%B0%8F%E6%97%B6-%E5%AE%98%E7%BD%91%E5%8D%81%E5%88%86%E9%92%9F/</loc>
     <lastmod>2025-03-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://blog.gugu.dev/categories/%E5%90%8E%E7%AB%AF/%E7%99%BE%E5%BA%A6%E4%B8%80%E5%B0%8F%E6%97%B6-%E5%AE%98%E7%BD%91%E5%8D%81%E5%88%86%E9%92%9F/</loc>
+    <loc>https://blog.gugu.dev/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E5%B0%8F%E7%8E%A9%E6%84%8F/%E8%BF%90%E7%BB%B4/</loc>
     <lastmod>2025-03-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
